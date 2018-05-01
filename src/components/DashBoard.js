@@ -25,7 +25,7 @@ const DashBoard = ({cities, removeCity}) => {
                 {
                 cities[city].isFetching ?
                     <div>
-                        <div>Updating...</div>
+                        <div className='spinner'><img src="../images/spinner.svg" /></div>
                         <div className='weather__delete' onClick={() => removeCity(city)}>Delete</div>
                     </div> :
                         <div>

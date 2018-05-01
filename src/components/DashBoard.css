@@ -43,3 +43,7 @@
   .weather:hover .weather__delete {
     display: block;
   }
+
+  .spinner {
+    margin-bottom: 18px;
+  }
