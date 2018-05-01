@@ -6,6 +6,13 @@ export const toggleFetching = cityName =>
         cityName
     })
 
+export const addError = (cityName, error) =>
+    ({
+        type: 'ADD_ERROR',
+        cityName,
+        error
+    })    
+
 export const addNewCity = cityName =>
     ({
         type: 'ADD_NEW_CITY',
@@ -37,10 +44,12 @@ export const addCityAndLoadForecast = cityName => {
 
 export const getAndUpdateCityForecast = async (cityName, dispatch, getState) => {
     if (!getState().cities[cityName].isFetching) {
-        toggleFetching();            
-        let cityData = await fetchForecast(cityName).catch(() => {toggleFetching()});
-        (cityData && cityName in getState().cities) ?
-            dispatch(updateCityForecast(cityName, cityData)):
-                dispatch(toggleFetching(cityName))
+        dispatch(toggleFetching(cityName));      
+        let cityData = await fetchForecast(cityName)
+            .catch((e) => {
+                dispatch(toggleFetching(cityName));
+                dispatch(addError(cityName, e));
+            });
+        if (cityData && cityName in getState().cities) dispatch(updateCityForecast(cityName, cityData))
     }
 }

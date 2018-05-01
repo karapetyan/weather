@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     flex-grow: 1;
     align-items: flex-start;
+    padding: 10px;
   }
   
   .dashboard-placeholder {

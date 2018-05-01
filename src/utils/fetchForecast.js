@@ -6,7 +6,7 @@ const APIKEY = 'a9d72b77c34e39bd7be46514f5ae69ed';
 const fetchForecast = (cityName) => { 
     return fetch(`${URL}weather?q=${cityName}&appid=${APIKEY}`)
         .then(response => {
-            if (response.status !== 200) throw new Error('Looks like there was a problem. Status Code: ' + response.status);
+            if (response.status !== 200) throw ('Looks like there was a problem. Status Code: ' + response.status);
             return response.json()
         })
         .then(json => {
@@ -17,10 +17,8 @@ const fetchForecast = (cityName) => {
             })
         })
         .catch(e => {
-            console.error('Ouch! Request error: ', e)
-            throw new Error();
-            }
-        )
+            throw (e);
+        })
 }
 
 export default fetchForecast;

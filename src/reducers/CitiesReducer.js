@@ -7,13 +7,23 @@ const cities = (state = {}, action) => {
             return ({
                 ...state,
                 [action.cityName]: {
-                    isFetching: false
+                    isFetching: false,
+                    error: ''
+                }
+            })
+        case 'ADD_ERROR':
+            return ({
+                ...state,
+                [action.cityName]: {
+                    ...state[action.cityName],
+                    error: `Error: ${action.error}`
                 }
             })
         case 'TOGGLE_FETCHING':
             return ({
                 ...state,
                 [action.cityName]: {
+                    ...state[action.cityName],
                     isFetching: !state[action.cityName].isFetching
                 }
             })
@@ -22,14 +32,14 @@ const cities = (state = {}, action) => {
                 ...state,
                 [action.cityName]: {
                     ...state[action.cityName],
-                    ...action.cityData   
+                    ...action.cityData,
+                    error: ''
                 }
             })
         case 'REMOVE_CITY':
             let newState = {...state};
             delete newState[action.cityName];
             return newState
-
         default:
             return state
     }
