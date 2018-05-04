@@ -1,6 +1,7 @@
 import fetchForecast from '../utils/fetchForecast';
 import fetchCitiesForecast from '../utils/fetchCitiesForecast';
 import getUpdatableCitiesList from '../utils/getUpdatableCitiesList';
+import getCitiesIds from '../utils/getCitiesIds';
 
 export const setFetching = (cityName, isFetching) =>
     ({
@@ -56,12 +57,13 @@ export const getAndUpdateCityForecast = async (cityName, dispatch, getState) => 
     }
 }
 
-export const getAndUpdateAllCities = citiesIds =>     // onRehydrate! Updating data when restore items from localStorage
+export const getAndUpdateAllCities = () =>     // onRehydrate! Updating data when restore items from localStorage
     async (dispatch, getState) => {
-        let citiesList = getUpdatableCitiesList(getState().cities)
+        let citiesList = getUpdatableCitiesList()
         citiesList.forEach(cityName =>
             dispatch(setFetching(cityName, true))
         )
+        let citiesIds = getCitiesIds(citiesList);
         let citiesForecast = await fetchCitiesForecast(citiesIds)
             .catch(e => {
                 citiesList.forEach(cityName => {
@@ -69,6 +71,7 @@ export const getAndUpdateAllCities = citiesIds =>     // onRehydrate! Updating d
                     dispatch(addError(cityName, e));
                 })
             });
+        console.log(citiesForecast);
         if (citiesForecast) {
             citiesForecast.forEach(cityItem => {
                 if (cityItem.name in getState().cities) {
