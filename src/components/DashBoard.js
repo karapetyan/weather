@@ -1,15 +1,9 @@
 import React from 'react';
 import './DashBoard.css';
-
-const removePersitKey = cities =>
-    Object.keys(cities).filter(city => 
-        city !== '_persist'
-    )
+import getAllCitiesList from '../utils/getAllCitiesList';
 
 const DashBoard = ({cities, removeCity}) => {
-    console.log("rendering DashBoard");
-    let citiesList = removePersitKey(cities); // removing _persist key from state (this key created automatically by redux-persist)
-
+    let citiesList = getAllCitiesList(cities); // removing _persist key from state (this key created automatically by redux-persist)
     if (citiesList.length === 0) {
       return(
         <div className='dashboard-placeholder'>

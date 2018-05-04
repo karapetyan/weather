@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import rootReducer from '../reducers/index';
+import onRehydrate from './onRehydrate';
 
 const persistConfig = {
     key: 'root',
@@ -19,4 +20,4 @@ export const store = createStore(
       )
 );
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store, null, onRehydrate);

@@ -12,7 +12,7 @@ const AddCity = ({addCityAndLoadForecast}) => {
     return (
         <form className="cityForm" onSubmit={submit}> 
             <label htmlFor="cityName">Назание города</label>
-            <input name="cityName" placeholder="Moscow" ref={input => cityNameInput = input}/>
+            <input name="cityName" placeholder="Moscow" pattern="[A-Za-z0-9-]{1,}" ref={input => cityNameInput = input}/>
             <div>
                 <button>Add</button>
                 <input type="reset" value="Clear"/>

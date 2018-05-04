@@ -19,14 +19,23 @@ const cities = (state = {}, action) => {
                     error: `Error: ${action.error}`
                 }
             })
-        case 'TOGGLE_FETCHING':
-            return ({
-                ...state,
-                [action.cityName]: {
-                    ...state[action.cityName],
-                    isFetching: !state[action.cityName].isFetching
-                }
-            })
+        case 'SET_FETCHING':
+            return action.isFetching ? 
+                    ({
+                        ...state,
+                        [action.cityName]: {
+                            ...state[action.cityName],
+                            isFetching: action.isFetching,
+                            error: ''
+                        } 
+                    }) :
+                    ({
+                        ...state,
+                        [action.cityName]: {
+                            ...state[action.cityName],
+                            isFetching: action.isFetching
+                        }
+                    })
         case 'UPDATE_CITY_FORECAST':
             return ({
                 ...state,
